@@ -12,7 +12,7 @@ interface ProductPaymentDetails {
   // Add any other required properties here
 }
 
-enum PaymentTypes{
+enum PaymentTypes {
   Test = 1,
   Tarot = 2,
   Other = 3
@@ -30,7 +30,7 @@ function mapPaymentType(param: string): PaymentTypes {
 }
 
 export async function loader({ params }: LoaderArgs) {
-  const prodname: string  = params.prodname as string;
+  const prodname: string = params.prodname as string;
   const prodid = mapPaymentType(prodname);
 
   console.log(params);
@@ -69,11 +69,25 @@ export default function CheckoutPopup() {
 
   const handlePayment = () => {
     // Logic for initiating the payment process
+    navigate('/paymentsprocessPayment');
   };
 
   const handleClose = () => {
     navigate('/');
   };
+
+  useEffect(() => {
+    // Dynamically add the Stripe script to the document
+    const script = document.createElement('script');
+    script.src = 'http://localhost:1337/plugins/strapi-stripe/static/stripe.js';
+    script.type = 'text/javascript';
+    document.body.appendChild(script);
+
+    return () => {
+      // Cleanup: remove the script from the document when the component is unmounted
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <div className="product-payment-details">
@@ -81,7 +95,7 @@ export default function CheckoutPopup() {
         <div>
           <h2>{productPaymentDetails.name}</h2>
           <p>Price: {productPaymentDetails.price} {productPaymentDetails.currency}</p>
-          <button onClick={handlePayment}>Make Payment</button>
+          <button class="css style" type="button" class="SS_ProductCheckout" data-id="<productPaymentDetails.id>" data-email="test@test.com" data-url="http://localhost:1337"> BuyNow </button>
           <button onClick={handleClose}>Close</button>
         </div>
       ) : (
