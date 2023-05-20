@@ -11,6 +11,7 @@ export default function Index() {
       <div><Link to="/zh-Hans/carousel">Carousel 简中</Link></div>
       <div><Link to="/en/carousel">Carousel EN</Link></div>
       <div> <Link to="/zh-Hant/carousel">Carousel 繁中</Link></div>
+      <div> <Link to="/payments/tarot/checkoutPopUp">Payment</Link></div>
     </div>
   );
 }
