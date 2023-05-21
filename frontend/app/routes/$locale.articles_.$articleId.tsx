@@ -88,7 +88,12 @@ export async function action({ request }: any) {
   }
 
   const session = await stripeClient.checkout.sessions.create({
-    payment_method_types: ["card"],
+    payment_method_types: ["card", "alipay", "wechat_pay"],
+    payment_method_options: {
+      wechat_pay: {
+        client: "web",
+      },
+    },
     line_items: [
       {
         price: price.data[0].id,
