@@ -71,7 +71,7 @@ export async function loader({ params }: LoaderArgs) {
     }
   } else {
     return {
-      authrozied: true,
+      authorized: true,
       article: data,
     };
   }
@@ -113,21 +113,23 @@ export default function Carousel() {
   return (
     <div>
       <pre>{JSON.stringify(data, null, 2)}</pre>
-      <Form method="post">
-        <button type="submit">Purchase</button>
-        <input
-          type="hidden"
-          id="stripeProductId"
-          name="stripeProductId"
-          value={data.stripeProductId}
-        />
-        <input
-          type="hidden"
-          id="successErrorUrl"
-          name="successErrorUrl"
-          value={useHref(".")}
-        />
-      </Form>
+      {!data.authorized && (
+        <Form method="post">
+          <button type="submit">Purchase</button>
+          <input
+            type="hidden"
+            id="stripeProductId"
+            name="stripeProductId"
+            value={data.stripeProductId}
+          />
+          <input
+            type="hidden"
+            id="successErrorUrl"
+            name="successErrorUrl"
+            value={useHref(".")}
+          />
+        </Form>
+      )}
       <Link to={`/${useParams().locale}/articles`}>Go Back</Link>
     </div>
   );
