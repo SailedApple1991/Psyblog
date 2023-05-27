@@ -2,8 +2,10 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "remix build",
-    "dev": "remix dev",
+    "build": "npm run build:css && remix build",
+    "build:css": "tailwindcss -m -i ./css/app.css -o app/css/app.css",
+    "dev": "concurrently \"npm run dev:css\" \"remix dev\"",
+    "dev:css": "tailwindcss -w -i ./css/app.css -o app/css/app.css",
     "start": "remix-serve build",
     "typecheck": "tsc"
   },
@@ -26,6 +28,7 @@
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
     "@types/react-slick": "^0.23.10",
+    "concurrently": "^8.0.1",
     "eslint": "^8.38.0",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.4"

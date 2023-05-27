@@ -1,4 +1,5 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
+import CSS from "./css/app.css"
 import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
@@ -31,4 +32,8 @@ export default function App() {
       </body>
     </html>
   );
+}
+
+export function link() {
+  return [{ rel: "stylesheet", href: CSS }]
 }
