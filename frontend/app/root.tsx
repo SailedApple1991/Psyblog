@@ -9,9 +9,15 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import tailwindStylesheetUrl from "./tailwind.css";
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  ...(cssBundleHref
+    ? [
+        { rel: "stylesheet", href: cssBundleHref },
+        { rel: "stylesheet", href: tailwindStylesheetUrl },
+      ]
+    : []),
 ];
 
 export default function App() {
@@ -28,7 +34,6 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
-        <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
       </body>
     </html>
   );
