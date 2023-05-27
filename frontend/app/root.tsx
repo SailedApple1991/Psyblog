@@ -1,5 +1,5 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import CSS from "./css/app.css"
+import CSS from "./tailwind.css"
 import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
