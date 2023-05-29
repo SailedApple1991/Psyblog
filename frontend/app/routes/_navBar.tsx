@@ -1,6 +1,8 @@
 import { Badge, Button, Navbar, Dropdown, Avatar,  } from "flowbite-react";
 import { useState } from "react";
-
+import { CustomChineseIcon, CustomEnglishIcon } from "~/utils/custom/customIcons";
+import { Link } from "@remix-run/react";
+import { redirect } from "@remix-run/node";
 
 
 export default function NavBar() {
@@ -11,10 +13,17 @@ export default function NavBar() {
       setIsOpen(!isOpen);
     };
   
-    const handleItemClick = (value:string) => {
-      console.log(`Selected item: ${value}`);
-      setIsOpen(false);
-    };
+    // const handleItemClick = (value:string) => {
+    //   switch(value){
+    //     case "en":
+    //         redirect("/en/carousel");
+    //     break;
+    //   }
+    //   setIsOpen(false);
+    // };
+    const handleButtonBlur = () => {
+        setIsOpen(false);
+      };
     
     return (
    
@@ -39,79 +48,78 @@ export default function NavBar() {
 
   <div className="custom-dropdown">
 
-      <Button color="light" onClick={handleToggle} className={`dropdown-toggle text-gray-900 dark:text-white ${
+      <Button color="light" onClick={handleToggle} outline={false} onBlur={handleButtonBlur}className={`dropdown-toggle text-gray-900 dark:text-white focus:ring-5 focus-black-300 ${
           isOpen ? 'active' : ''
-        }`}>
-      <svg
-        className="w-5 h-5 mr-2 rounded-full"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        viewBox="0 0 3900 3900"
+          
+        }`}
+        
         >
-            <path fill="#b22234" d="M0 0h7410v3900H0z" />
-            <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" strokeWidth="300" />
-            <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
-            <g fill="#fff">
-            <g id="d">
-                <g id="c">
-                <g id="e">
-                    <g id="b">
-                    <path id="a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
-                    <use xlinkHref="#a" y="420" />
-                    <use xlinkHref="#a" y="840" />
-                    <use xlinkHref="#a" y="1260" />
-                    </g>
-                    <use xlinkHref="#a" y="1680" />
-                </g>
-                <use xlinkHref="#b" x="247" y="210" />
-                </g>
-                <use xlinkHref="#c" x="494" />
-            </g>
-            <use xlinkHref="#d" x="988" />
-            <use xlinkHref="#c" x="1976" />
-            <use xlinkHref="#e" x="2470" />
-            </g>
-          {/* SVG paths */}
-        </svg>
+      <CustomEnglishIcon />
         English (US)
       </Button>
       {isOpen && (
-        <div className="dropdown-menu">
-          <Button color="light" onClick={() => handleItemClick('Item 1')} 
-          className="dropdown-toggle"
-         >
-            <svg
-              className="w-4 h-4 mr-2"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 24 24"
-            >
-              {/* SVG paths */}
-            </svg>
-            Item 1
-          </Button>
-          {/* Other dropdown items */}
-        </div>
-      )}
+                <div className="dropdown-menu absolute z-10 bg-white border border-gray-300 py-1 mt-2">
+                <Link
+                  to="/en/carousel"
+                  className="dropdown-item flex items-center px-4 py-2 text-sm text-gray-700"
+                  
+                >
+                  <CustomEnglishIcon />
+                  <span className="whitespace-nowrap">English (US)</span>
+                </Link>
+                <Link
+                  to="/zh-Hans/carousel"
+                  className="dropdown-item flex items-center px-4 py-2 text-sm text-gray-700"
+                 
+                >
+                  <CustomChineseIcon />
+                  <span className="whitespace-nowrap">中文 (简体)</span>
+                </Link>
+                <Link
+                  to="/zh-Hant/carousel"
+                  className="dropdown-item flex items-center px-4 py-2 text-sm text-gray-700"
+                  
+                >
+                  <CustomChineseIcon />
+                  <span className="whitespace-nowrap">中文 (繁体)</span>
+                </Link>
+                {/* Other dropdown items */}
+              </div>
+            )}
       <style>
-        {`
-          .custom-dropdown .dropdown-toggle {
-            background: none;
-            border: none;
-            outline: none;
-            padding: 0;
-          }
-          .custom-dropdown .dropdown-toggle.active {
-            border: none;
-          }
-          .custom-dropdown .dropdown-menu {
-            // Dropdown menu styles
-          }
-          .custom-dropdown .dropdown-item {
-            // Dropdown item styles
-          }
+      {`
+      .focus\:ring-cyan-300:focus{
+        --tw-ring-color:none;
+      }
+              .custom-dropdown .dropdown-toggle {
+                background: none;
+                border: none;
+                outline: none;
+                padding: 0;
+                box-shadow: none;
+              }
+              .custom-dropdown .dropdown-toggle.active {
+                border: none;
+                box-shadow: none;
+              }
+              .custom-dropdown .dropdown-menu {
+                /* Dropdown menu styles */
+              }
+              .custom-dropdown .dropdown-item {
+                /* Dropdown item styles */
+              }
+              .custom-dropdown .dropdown-toggle:focus,
+              .custom-dropdown .dropdown-toggle:active {
+                background-color: transparent;
+                color: inherit;
+                --tw-ring-color:none;
+              }
+              .custom-dropdown .dropdown-toggle:focus:not(:focus-visible),
+              .custom-dropdown .dropdown-toggle:active:not(:focus-visible) {
+                outline: none;
+                box-shadow: none;
+                border-color: transparent;
+              }
         `}
       </style>
     </div>

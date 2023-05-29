@@ -30,7 +30,6 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <NavBar />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
