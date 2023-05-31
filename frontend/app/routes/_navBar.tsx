@@ -1,8 +1,9 @@
 import { Badge, Button, Navbar, Dropdown, Avatar,  } from "flowbite-react";
 import { useState } from "react";
-import { CustomChineseIcon, CustomEnglishIcon } from "~/utils/custom/customIcons";
+import { CustomChineseIcon, CustomEnglishIcon, CustomMenuEnIcon } from "~/utils/custom/customIcons";
 import { Link } from "@remix-run/react";
 import { redirect } from "@remix-run/node";
+import { AiOutlineMenu } from 'react-icons/ai';
 
 
 export default function NavBar() {
@@ -27,23 +28,22 @@ export default function NavBar() {
     
     return (
    
-        <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
+        <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4"}}>
         <div>
           
-        <Navbar
+        <Navbar className="bg-[#EDE7E0]"
   fluid
   rounded
 >
-  <Navbar.Brand href="https://flowbite.com/">
-    <img
-      alt="Flowbite Logo"
-      className="mr-3 h-6 sm:h-9"
-      src="https://flowbite.com/docs/images/logo.svg"
-    />
-    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-      Flowbite
-    </span>
+  <Navbar.Brand href="">
   </Navbar.Brand>
+  <Button size="xs" className="bg-[#A18771] hidden md:flex items-center justify-center  md:w-1/6 lg:w-1/8 xl:w-1/10">
+  Register
+</Button>
+
+  <Button outline size="xs" className="bg-[#A18771] hidden md:flex items-center justify-center  md:w-1/6 lg:w-1/8 xl:w-1/10" >
+        SignIn
+  </Button>
   <div className="flex items-center md:order-2">
 
   <div className="custom-dropdown">
@@ -54,8 +54,7 @@ export default function NavBar() {
         }`}
         
         >
-      <CustomEnglishIcon />
-        English (US)
+      <CustomMenuEnIcon />
       </Button>
       {isOpen && (
                 <div className="dropdown-menu absolute z-10 bg-white border border-gray-300 py-1 mt-2">
@@ -123,12 +122,12 @@ export default function NavBar() {
         `}
       </style>
     </div>
-   
   </div>
   <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-3">
     <Dropdown
       inline
-      label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded/>}
+      label={<AiOutlineMenu/>}
+      arrowIcon={false}
     >
       <Dropdown.Header>
         <span className="block text-sm">
