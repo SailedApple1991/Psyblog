@@ -5,6 +5,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import {
   CustomChineseIcon,
   CustomEnglishIcon,
+  CustomMenuChIcon,
   CustomMenuEnIcon,
 } from "~/utils/custom/customIcons";
 
@@ -57,34 +58,8 @@ export default function NavBar() {
                   isOpen ? "active" : ""
                 }`}
               >
-                <CustomMenuEnIcon />
+                 {isOpen ? <CustomMenuChIcon /> : <CustomMenuEnIcon />}
               </Button>
-              {isOpen && (
-                <div className="dropdown-menu absolute z-10 mt-2 border border-gray-300 bg-white py-1">
-                  <Link
-                    to="/en/carousel"
-                    className="dropdown-item flex items-center px-4 py-2 text-sm text-gray-700"
-                  >
-                    <CustomEnglishIcon />
-                    <span className="whitespace-nowrap">English (US)</span>
-                  </Link>
-                  <Link
-                    to="/zh-Hans/carousel"
-                    className="dropdown-item flex items-center px-4 py-2 text-sm text-gray-700"
-                  >
-                    <CustomChineseIcon />
-                    <span className="whitespace-nowrap">中文 (简体)</span>
-                  </Link>
-                  <Link
-                    to="/zh-Hant/carousel"
-                    className="dropdown-item flex items-center px-4 py-2 text-sm text-gray-700"
-                  >
-                    <CustomChineseIcon />
-                    <span className="whitespace-nowrap">中文 (繁体)</span>
-                  </Link>
-                  {/* Other dropdown items */}
-                </div>
-              )}
               <style>
                 {`
       .focus\:ring-cyan-300:focus{
