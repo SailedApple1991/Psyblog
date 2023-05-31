@@ -1,6 +1,6 @@
 import { Badge, Button, Navbar, Dropdown, Avatar,  } from "flowbite-react";
 import { useState } from "react";
-import { CustomChineseIcon, CustomEnglishIcon, CustomMenuEnIcon } from "~/utils/custom/customIcons";
+import { CustomChineseIcon, CustomEnglishIcon, CustomMenuEnIcon, CustomMenuChIcon } from "~/utils/custom/customIcons";
 import { Link } from "@remix-run/react";
 import { redirect } from "@remix-run/node";
 import { AiOutlineMenu } from 'react-icons/ai';
@@ -29,21 +29,44 @@ export default function NavBar() {
     return (
    
         <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4"}}>
-        <div>
-          
-        <Navbar className="bg-[#EDE7E0]"
-  fluid
-  rounded
->
-  <Navbar.Brand href="">
-  </Navbar.Brand>
-  <Button size="xs" className="bg-[#A18771] hidden md:flex items-center justify-center  md:w-1/6 lg:w-1/8 xl:w-1/10">
-  Register
-</Button>
+          <Navbar fluid rounded border={false} color="bg-[#EDE7E0]" >
+              <Navbar.Brand href="https://flowbite.com/">
+              <img
+                alt="Flowbite Logo"
+                className="mr-3 h-6 sm:h-9"
+                src="https://flowbite.com/docs/images/logo.svg"
+              />
+              <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+                Flowbite
+              </span>
+                </Navbar.Brand>
+            
+              <Button size="xs" className="bg-[#A18771]" >
+                Register
+              </Button>
+              <Button outline size="xs" className="bg-[#A18771]">
+                SignIn
+              </Button>
 
-  <Button outline size="xs" className="bg-[#A18771] hidden md:flex items-center justify-center  md:w-1/6 lg:w-1/8 xl:w-1/10" >
-        SignIn
-  </Button>
+               <Navbar.Collapse>
+                <Navbar.Link
+                  active
+                  href="/navbars">
+                  Home
+                </Navbar.Link>
+                <Navbar.Link href="/navbars">
+                  About
+                </Navbar.Link>
+                <Navbar.Link href="/navbars">
+                  Services
+                </Navbar.Link>
+                <Navbar.Link href="/navbars">
+                  Pricing
+                </Navbar.Link>
+                <Navbar.Link href="/navbars">
+                  Contact
+                </Navbar.Link>
+              </Navbar.Collapse>
   <div className="flex items-center md:order-2">
 
   <div className="custom-dropdown">
@@ -54,37 +77,9 @@ export default function NavBar() {
         }`}
         
         >
-      <CustomMenuEnIcon />
+     {isOpen ? <CustomMenuChIcon /> : <CustomMenuEnIcon />}
       </Button>
-      {isOpen && (
-                <div className="dropdown-menu absolute z-10 bg-white border border-gray-300 py-1 mt-2">
-                <Link
-                  to="/en/carousel"
-                  className="dropdown-item flex items-center px-4 py-2 text-sm text-gray-700"
-                  
-                >
-                  <CustomEnglishIcon />
-                  <span className="whitespace-nowrap">English (US)</span>
-                </Link>
-                <Link
-                  to="/zh-Hans/carousel"
-                  className="dropdown-item flex items-center px-4 py-2 text-sm text-gray-700"
-                 
-                >
-                  <CustomChineseIcon />
-                  <span className="whitespace-nowrap">中文 (简体)</span>
-                </Link>
-                <Link
-                  to="/zh-Hant/carousel"
-                  className="dropdown-item flex items-center px-4 py-2 text-sm text-gray-700"
-                  
-                >
-                  <CustomChineseIcon />
-                  <span className="whitespace-nowrap">中文 (繁体)</span>
-                </Link>
-                {/* Other dropdown items */}
-              </div>
-            )}
+
       <style>
       {`
       .focus\:ring-cyan-300:focus{
@@ -153,29 +148,8 @@ export default function NavBar() {
     </Dropdown>
     <Navbar.Toggle />
   </div>
-  <Navbar.Collapse>
-    <Navbar.Link
-      active
-      href="/navbars"
-    >
-      Home
-    </Navbar.Link>
-    <Navbar.Link href="/navbars">
-      About
-    </Navbar.Link>
-    <Navbar.Link href="/navbars">
-      Services
-    </Navbar.Link>
-    <Navbar.Link href="/navbars">
-      Pricing
-    </Navbar.Link>
-    <Navbar.Link href="/navbars">
-      Contact
-    </Navbar.Link>
-  </Navbar.Collapse>
+  
 </Navbar>
-        </div>
-
         </div>
 
         );
