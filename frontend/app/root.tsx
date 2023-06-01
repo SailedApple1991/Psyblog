@@ -9,7 +9,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import tailwindStylesheetUrl from "./tailwind.css";
-import NavBar from "./routes/_navBar";
+import NavBar from "./routes/$locale._navBar";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref
@@ -38,4 +38,3 @@ export default function App() {
     </html>
   );
 }
-

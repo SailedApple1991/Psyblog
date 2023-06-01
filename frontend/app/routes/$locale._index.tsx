@@ -1,3 +1,7 @@
+import { useSiteContent } from "~/components/SiteContentContext";
+
 export default function LocaleHome() {
-  return <div>Lorem</div>;
+  const siteContent = useSiteContent();
+
+  return <div>Lorem {siteContent.siteTitle}</div>;
 }
