@@ -9,7 +9,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import tailwindStylesheetUrl from "./tailwind.css";
-import NavBar from "./routes/$locale._navBar";
+import NavBar from "./components/NavBar";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref

@@ -1,16 +1,18 @@
-import { Link } from "@remix-run/react";
 import { Button, Dropdown, Navbar } from "flowbite-react";
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import {
-  CustomChineseIcon,
-  CustomEnglishIcon,
-  CustomMenuChIcon,
-  CustomMenuEnIcon,
-} from "~/utils/custom/customIcons";
+import { Menu } from "~/api/strapi";
+import { useSiteContent } from "~/components/SiteContentContext";
+import { CustomMenuChIcon, CustomMenuEnIcon } from "~/utils/custom/customIcons";
 
-export default function NavBar() {
+export interface NavBarProps {
+  menuItems: Menu[];
+}
+
+export default function NavBar(props: NavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { loginButtonLabel, registerButtonLabel } = useSiteContent();
+  const { menuItems } = props;
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -37,7 +39,7 @@ export default function NavBar() {
             size="xs"
             className="lg:w-1/8 xl:w-1/10 hidden items-center justify-center  bg-[#A18771] md:flex md:w-1/6"
           >
-            Register
+            {registerButtonLabel}
           </Button>
 
           <Button
@@ -45,7 +47,7 @@ export default function NavBar() {
             size="xs"
             className="lg:w-1/8 xl:w-1/10 hidden items-center justify-center  bg-[#A18771] md:flex md:w-1/6"
           >
-            SignIn
+            {loginButtonLabel}
           </Button>
           <div className="flex items-center md:order-2">
             <div className="custom-dropdown">
@@ -58,7 +60,7 @@ export default function NavBar() {
                   isOpen ? "active" : ""
                 }`}
               >
-                 {isOpen ? <CustomMenuChIcon /> : <CustomMenuEnIcon />}
+                {isOpen ? <CustomMenuChIcon /> : <CustomMenuEnIcon />}
               </Button>
               <style>
                 {`
@@ -115,13 +117,9 @@ export default function NavBar() {
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse>
-            <Navbar.Link active href="/navbars">
-              Home
-            </Navbar.Link>
-            <Navbar.Link href="/navbars">About</Navbar.Link>
-            <Navbar.Link href="/navbars">Services</Navbar.Link>
-            <Navbar.Link href="/navbars">Pricing</Navbar.Link>
-            <Navbar.Link href="/navbars">Contact</Navbar.Link>
+            {menuItems.map((menu) => (
+              <Navbar.Link href={menu.url}>{menu.text}</Navbar.Link>
+            ))}
           </Navbar.Collapse>
         </Navbar>
       </div>

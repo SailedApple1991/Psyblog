@@ -645,19 +645,39 @@ export interface CarouselResponse {
   meta?: object;
 }
 
-export interface SiteContentRequest {
+export interface MenuLocalizationRequest {
+  text: string;
+  url: string;
+  priority?: number;
+  locale: string;
+}
+
+export interface MenuRequest {
   data: {
-    siteTitle?: string;
+    text: string;
+    url: string;
+    priority?: number;
+    locale?: string;
   };
 }
 
-export interface SiteContentListResponseDataItem {
+export interface MenuResponseDataObjectLocalized {
   id?: number;
-  attributes?: SiteContent;
+  attributes?: Menu;
 }
 
-export interface SiteContentListResponse {
-  data?: SiteContentListResponseDataItem[];
+export interface MenuLocalizationResponse {
+  data?: MenuResponseDataObjectLocalized;
+  meta?: object;
+}
+
+export interface MenuListResponseDataItemLocalized {
+  id?: number;
+  attributes?: Menu;
+}
+
+export interface MenuLocalizationListResponse {
+  data?: MenuListResponseDataItemLocalized[];
   meta?: {
     pagination?: {
       page?: number;
@@ -670,8 +690,29 @@ export interface SiteContentListResponse {
   };
 }
 
-export interface SiteContent {
-  siteTitle?: string;
+export interface MenuListResponseDataItem {
+  id?: number;
+  attributes?: Menu;
+}
+
+export interface MenuListResponse {
+  data?: MenuListResponseDataItem[];
+  meta?: {
+    pagination?: {
+      page?: number;
+      /** @min 25 */
+      pageSize?: number;
+      /** @max 1 */
+      pageCount?: number;
+      total?: number;
+    };
+  };
+}
+
+export interface Menu {
+  text: string;
+  url: string;
+  priority?: number;
   /** @format date-time */
   createdAt?: string;
   /** @format date-time */
@@ -782,6 +823,205 @@ export interface SiteContent {
       attributes?: object;
     };
   };
+  localizations?: {
+    data?: Menu[];
+  };
+  locale?: string;
+}
+
+export interface MenuResponseDataObject {
+  id?: number;
+  attributes?: Menu;
+}
+
+export interface MenuResponse {
+  data?: MenuResponseDataObject;
+  meta?: object;
+}
+
+export interface SiteContentLocalizationRequest {
+  siteTitle?: string;
+  loginButtonLabel?: string;
+  registerButtonLabel?: string;
+  consultButtonLabel?: string;
+  locale: string;
+}
+
+export interface SiteContentRequest {
+  data: {
+    siteTitle?: string;
+    loginButtonLabel?: string;
+    registerButtonLabel?: string;
+    consultButtonLabel?: string;
+    locale?: string;
+  };
+}
+
+export interface SiteContentResponseDataObjectLocalized {
+  id?: number;
+  attributes?: SiteContent;
+}
+
+export interface SiteContentLocalizationResponse {
+  data?: SiteContentResponseDataObjectLocalized;
+  meta?: object;
+}
+
+export interface SiteContentListResponseDataItemLocalized {
+  id?: number;
+  attributes?: SiteContent;
+}
+
+export interface SiteContentLocalizationListResponse {
+  data?: SiteContentListResponseDataItemLocalized[];
+  meta?: {
+    pagination?: {
+      page?: number;
+      /** @min 25 */
+      pageSize?: number;
+      /** @max 1 */
+      pageCount?: number;
+      total?: number;
+    };
+  };
+}
+
+export interface SiteContentListResponseDataItem {
+  id?: number;
+  attributes?: SiteContent;
+}
+
+export interface SiteContentListResponse {
+  data?: SiteContentListResponseDataItem[];
+  meta?: {
+    pagination?: {
+      page?: number;
+      /** @min 25 */
+      pageSize?: number;
+      /** @max 1 */
+      pageCount?: number;
+      total?: number;
+    };
+  };
+}
+
+export interface SiteContent {
+  siteTitle?: string;
+  loginButtonLabel?: string;
+  registerButtonLabel?: string;
+  consultButtonLabel?: string;
+  /** @format date-time */
+  createdAt?: string;
+  /** @format date-time */
+  updatedAt?: string;
+  createdBy?: {
+    data?: {
+      id?: number;
+      attributes?: {
+        firstname?: string;
+        lastname?: string;
+        username?: string;
+        /** @format email */
+        email?: string;
+        resetPasswordToken?: string;
+        registrationToken?: string;
+        isActive?: boolean;
+        roles?: {
+          data?: {
+            id?: number;
+            attributes?: {
+              name?: string;
+              code?: string;
+              description?: string;
+              users?: {
+                data?: {
+                  id?: number;
+                  attributes?: object;
+                }[];
+              };
+              permissions?: {
+                data?: {
+                  id?: number;
+                  attributes?: {
+                    action?: string;
+                    subject?: string;
+                    properties?: any;
+                    conditions?: any;
+                    role?: {
+                      data?: {
+                        id?: number;
+                        attributes?: object;
+                      };
+                    };
+                    /** @format date-time */
+                    createdAt?: string;
+                    /** @format date-time */
+                    updatedAt?: string;
+                    createdBy?: {
+                      data?: {
+                        id?: number;
+                        attributes?: object;
+                      };
+                    };
+                    updatedBy?: {
+                      data?: {
+                        id?: number;
+                        attributes?: object;
+                      };
+                    };
+                  };
+                }[];
+              };
+              /** @format date-time */
+              createdAt?: string;
+              /** @format date-time */
+              updatedAt?: string;
+              createdBy?: {
+                data?: {
+                  id?: number;
+                  attributes?: object;
+                };
+              };
+              updatedBy?: {
+                data?: {
+                  id?: number;
+                  attributes?: object;
+                };
+              };
+            };
+          }[];
+        };
+        blocked?: boolean;
+        preferedLanguage?: string;
+        /** @format date-time */
+        createdAt?: string;
+        /** @format date-time */
+        updatedAt?: string;
+        createdBy?: {
+          data?: {
+            id?: number;
+            attributes?: object;
+          };
+        };
+        updatedBy?: {
+          data?: {
+            id?: number;
+            attributes?: object;
+          };
+        };
+      };
+    };
+  };
+  updatedBy?: {
+    data?: {
+      id?: number;
+      attributes?: object;
+    };
+  };
+  localizations?: {
+    data?: SiteContent[];
+  };
+  locale?: string;
 }
 
 export interface SiteContentResponseDataObject {
@@ -1347,6 +1587,140 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
+  menus = {
+    /**
+     * No description
+     *
+     * @tags Menu
+     * @name GetMenus
+     * @request GET:/menus
+     * @secure
+     */
+    getMenus: (
+      query?: {
+        /** Sort by attributes ascending (asc) or descending (desc) */
+        sort?: string;
+        /** Return page/pageSize (default: true) */
+        "pagination[withCount]"?: boolean;
+        /** Page number (default: 0) */
+        "pagination[page]"?: number;
+        /** Page size (default: 25) */
+        "pagination[pageSize]"?: number;
+        /** Offset value (default: 0) */
+        "pagination[start]"?: number;
+        /** Number of entities to return (default: 25) */
+        "pagination[limit]"?: number;
+        /** Fields to return (ex: title,author) */
+        fields?: string;
+        /** Relations to return */
+        populate?: string;
+        /** Filters to apply */
+        filters?: object;
+        /** Locale to apply */
+        locale?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<MenuListResponse, Error>({
+        path: `/menus`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Menu
+     * @name PostMenus
+     * @request POST:/menus
+     * @secure
+     */
+    postMenus: (data: MenuRequest, params: RequestParams = {}) =>
+      this.request<MenuResponse, Error>({
+        path: `/menus`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Menu
+     * @name GetMenusId
+     * @request GET:/menus/{id}
+     * @secure
+     */
+    getMenusId: (id: number, params: RequestParams = {}) =>
+      this.request<MenuResponse, Error>({
+        path: `/menus/${id}`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Menu
+     * @name PutMenusId
+     * @request PUT:/menus/{id}
+     * @secure
+     */
+    putMenusId: (id: number, data: MenuRequest, params: RequestParams = {}) =>
+      this.request<MenuResponse, Error>({
+        path: `/menus/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Menu
+     * @name DeleteMenusId
+     * @request DELETE:/menus/{id}
+     * @secure
+     */
+    deleteMenusId: (id: number, params: RequestParams = {}) =>
+      this.request<number, Error>({
+        path: `/menus/${id}`,
+        method: "DELETE",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Menu
+     * @name PostMenusIdLocalizations
+     * @request POST:/menus/{id}/localizations
+     * @secure
+     */
+    postMenusIdLocalizations: (id: number, data: MenuLocalizationRequest, params: RequestParams = {}) =>
+      this.request<MenuLocalizationResponse, Error>({
+        path: `/menus/${id}/localizations`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
   siteContent = {
     /**
      * No description
@@ -1422,6 +1796,25 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/site-content`,
         method: "DELETE",
         secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Site-content
+     * @name PostSiteContentLocalizations
+     * @request POST:/site-content/localizations
+     * @secure
+     */
+    postSiteContentLocalizations: (data: SiteContentLocalizationRequest, params: RequestParams = {}) =>
+      this.request<SiteContentLocalizationResponse, Error>({
+        path: `/site-content/localizations`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),

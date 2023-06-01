@@ -4,7 +4,8 @@ import acceptLanguage from "accept-language-parser";
 import { getStrapiApi } from "~/api/strapiWrapper";
 import { SiteContentContext } from "~/components/SiteContentContext";
 import { supportLocales } from "~/utils/supportLocales";
-import NavBar from "./_navBar";
+import NavBar from "../components/NavBar";
+import { Menu } from "~/api/strapi";
 
 export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
   return [{ title: data?.siteTitle }];
@@ -29,16 +30,31 @@ export async function loader({ params }: LoaderArgs) {
     locale: pickedLanguage,
   });
 
-  return json(siteContentResp.data.data?.attributes);
+  const menuResp = await getStrapiApi().menus.getMenus({
+    locale: pickedLanguage,
+  });
+
+  return json({
+    siteContent: siteContentResp.data.data?.attributes,
+    menuData: menuResp.data.data,
+  });
 }
 
 export default function LocaleGuard() {
-  const siteContent = useLoaderData<typeof loader>();
+  const { siteContent, menuData } = useLoaderData<typeof loader>();
+
+  const menuItems: Menu[] = menuData
+    ?.map((menu) => menu.attributes)
+    .filter((menu) => !!menu)
+    .sort((a, b) => (a?.priority || 0) - (b?.priority || 0)) as Menu[];
 
   return (
-    <SiteContentContext.Provider value={siteContent}>
-      <NavBar />
-      <Outlet />
-    </SiteContentContext.Provider>
+    siteContent &&
+    menuItems && (
+      <SiteContentContext.Provider value={siteContent}>
+        <NavBar menuItems={menuItems} />
+        <Outlet />
+      </SiteContentContext.Provider>
+    )
   );
 }
