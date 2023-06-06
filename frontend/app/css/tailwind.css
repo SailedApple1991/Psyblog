@@ -1082,12 +1082,20 @@ input:checked + .toggle-bg {
   right: 0px;
 }
 
+.right-3 {
+  right: 0.75rem;
+}
+
 .top-0 {
   top: 0px;
 }
 
 .top-1\/2 {
   top: 50%;
+}
+
+.right-2 {
+  right: 0.5rem;
 }
 
 .-z-10 {
@@ -1155,6 +1163,31 @@ input:checked + .toggle-bg {
   margin-bottom: 1.5rem;
 }
 
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.mx-20 {
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.mx-12 {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
+.mx-14 {
+  margin-left: 3.5rem;
+  margin-right: 3.5rem;
+}
+
 .-mb-px {
   margin-bottom: -1px;
 }
@@ -1165,6 +1198,10 @@ input:checked + .toggle-bg {
 
 .mb-10 {
   margin-bottom: 2.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 
 .mb-4 {
@@ -1233,6 +1270,18 @@ input:checked + .toggle-bg {
 
 .mt-6 {
   margin-top: 1.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mb-9 {
+  margin-bottom: 2.25rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
 }
 
 .block {
@@ -1357,6 +1406,10 @@ input:checked + .toggle-bg {
   height: 1px;
 }
 
+.h-screen {
+  height: 100vh;
+}
+
 .max-h-\[90vh\] {
   max-height: 90vh;
 }
@@ -1436,6 +1489,14 @@ input:checked + .toggle-bg {
 
 .w-full {
   width: 100%;
+}
+
+.w-96 {
+  width: 24rem;
+}
+
+.w-80 {
+  width: 20rem;
 }
 
 .max-w-2xl {
@@ -2516,6 +2577,18 @@ input:checked + .toggle-bg {
   padding: 1.5rem;
 }
 
+.p-8 {
+  padding: 2rem;
+}
+
+.p-12 {
+  padding: 3rem;
+}
+
+.p-24 {
+  padding: 6rem;
+}
+
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -2586,6 +2659,56 @@ input:checked + .toggle-bg {
   padding-bottom: 1.25rem;
 }
 
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+.py-24 {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.px-20 {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.px-14 {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
+
+.py-40 {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
+
+.px-24 {
+  padding-left: 6rem;
+  padding-right: 6rem;
+}
+
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
 .pl-0 {
   padding-left: 0px;
 }
@@ -2638,6 +2761,14 @@ input:checked + .toggle-bg {
   text-align: center;
 }
 
+.text-right {
+  text-align: right;
+}
+
+.text-start {
+  text-align: start;
+}
+
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -2666,6 +2797,11 @@ input:checked + .toggle-bg {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .font-bold {

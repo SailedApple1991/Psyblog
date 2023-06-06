@@ -1,3 +1,4 @@
+import { Link, Links } from "@remix-run/react";
 import { Button, Dropdown, Navbar } from "flowbite-react";
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
@@ -7,13 +8,13 @@ import { CustomMenuChIcon, CustomMenuEnIcon } from "~/utils/custom/customIcons";
 
 export interface NavBarProps {
   menuItems: Menu[];
+  locale : any;
 }
 
 export default function NavBar(props: NavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { loginButtonLabel, registerButtonLabel } = useSiteContent();
-  const { menuItems } = props;
-
+  const { menuItems, locale } = props;
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -33,16 +34,16 @@ export default function NavBar(props: NavBarProps) {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <div>
-        <Navbar className="bg-[#EDE7E0]" fluid rounded>
+        <Navbar     color="primary" className="bg-[#EDE7E0]" fluid rounded>
           <Navbar.Brand href=""></Navbar.Brand>
-          <Button
+        
+          <Button href={`/${locale}/signup`}
             size="xs"
             className="lg:w-1/8 xl:w-1/10 hidden items-center justify-center  bg-[#A18771] md:flex md:w-1/6"
           >
             {registerButtonLabel}
           </Button>
-
-          <Button
+          <Button href={`/${locale}/login`}
             outline
             size="xs"
             className="lg:w-1/8 xl:w-1/10 hidden items-center justify-center  bg-[#A18771] md:flex md:w-1/6"
