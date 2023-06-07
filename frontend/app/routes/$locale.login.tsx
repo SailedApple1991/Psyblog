@@ -12,12 +12,12 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#EDE7E0]">
-      <div className="px-24 py-24 bg-white">
+      <div className="px-14 py-10 bg-white">
       <div className="max-w-md mx-auto">
         <h1 className="text-3xl font-bold mb-2 text-left">Welcome!</h1>
         <p className="text-sm mb-4 text-left">Please Login.</p>
 
-        <div className="w-full mb-4">
+        <div className="w-72 mb-4">
           <Label htmlFor="username" className="text-lg text-left">
             Username
           </Label>

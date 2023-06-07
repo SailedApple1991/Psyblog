@@ -37,6 +37,7 @@
     "@types/react-dom": "^18.0.11",
     "@types/react-slick": "^0.23.10",
     "concurrently": "^8.0.1",
+    "daisyui": "^3.0.3",
     "eslint": "^8.38.0",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
