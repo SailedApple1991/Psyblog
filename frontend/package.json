@@ -18,7 +18,7 @@
     "accept-language-parser": "^1.5.0",
     "autoprefixer": "^10.4.14",
     "flowbite": "^1.6.5",
-    "flowbite-react": "^0.4.6",
+    "flowbite-react": "^0.4.7",
     "isbot": "^3.6.8",
     "postcss": "^8.4.23",
     "react": "^18.2.0",

@@ -1,14 +1,16 @@
 import { LoaderArgs, json, redirect } from "@remix-run/node";
 import { Outlet, V2_MetaFunction, useLoaderData } from "@remix-run/react";
-import acceptLanguage from "accept-language-parser";
+import acceptLanguage, { pick } from "accept-language-parser";
 import { getStrapiApi } from "~/api/strapiWrapper";
 import { SiteContentContext } from "~/components/SiteContentContext";
 import { supportLocales } from "~/utils/supportLocales";
 import NavBar from "../components/NavBar";
 import { Menu } from "~/api/strapi";
+import { useState } from "react";
+import Login from "./$locale.login";
 
 export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
-  return [{ title: data?.siteTitle }];
+  return [{ title: data?.siteContent.siteTitle }];
 };
 
 export async function loader({ params }: LoaderArgs) {
@@ -37,12 +39,12 @@ export async function loader({ params }: LoaderArgs) {
   return json({
     siteContent: siteContentResp.data.data?.attributes,
     menuData: menuResp.data.data,
+    locale: pickedLanguage
   });
 }
 
 export default function LocaleGuard() {
-  const { siteContent, menuData } = useLoaderData<typeof loader>();
-
+  const { siteContent, menuData,locale } = useLoaderData<typeof loader>();
   const menuItems: Menu[] = menuData
     ?.map((menu) => menu.attributes)
     .filter((menu) => !!menu)
@@ -52,7 +54,7 @@ export default function LocaleGuard() {
     siteContent &&
     menuItems && (
       <SiteContentContext.Provider value={siteContent}>
-        <NavBar menuItems={menuItems} />
+        <NavBar menuItems={menuItems} locale={locale}/>
         <Outlet />
       </SiteContentContext.Provider>
     )

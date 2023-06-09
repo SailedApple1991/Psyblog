@@ -59,6 +59,22 @@
           "translate": "translate"
         }
       }
+    },
+    "PasswordLabel": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "ConfirmPasswordLabel": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
     }
   }
 }
