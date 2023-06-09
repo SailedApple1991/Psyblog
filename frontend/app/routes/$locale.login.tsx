@@ -13,14 +13,6 @@ import {
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "@remix-run/react";
 
-const customTheme: DeepPartial<FlowbiteTheme> = {
-  button: {
-    color: {
-      primary: "bg-red-500 hover:bg-red-600",
-    },
-  },
-};
-
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,7 +21,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-[#EDE7E0]">
+    <div className="bg- flex h-screen items-center justify-center">
       <div className="bg-white px-14 py-10">
         <div className="mx-auto max-w-md">
           <h1 className="mb-2 text-left text-3xl font-bold">Welcome!</h1>
@@ -79,15 +71,11 @@ const Login = () => {
             </Link>
           </div>
 
-          <Flowbite theme={{ theme: customTheme }}>
-            <Button color="primary">Click me</Button>
-          </Flowbite>
+          {/* <Flowbite> */}
+          <Button color="primary">Click me</Button>
+          {/* </Flowbite> */}
 
-          <Button
-            color="secondary"
-            className="w-full bg-[#EDE7E0] text-lg text-white"
-            href={`/signup`}
-          >
+          <Button color="secondary" href={`/signup`}>
             Register
           </Button>
         </div>
