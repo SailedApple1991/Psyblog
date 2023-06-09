@@ -37,6 +37,7 @@ export async function loader({ params }: LoaderArgs) {
 
   const carouselResp = await getStrapiApi().carousels.getCarousels({
     locale: pickedLanguage,
+    populate: "Image",
   });
 
   return json({
@@ -57,13 +58,18 @@ const customTheme: DeepPartial<FlowbiteTheme> = {
       off: "text-white",
     },
   },
+  carousel: {
+    indicators: {
+      wrapper: "absolute right-5 top-1/2 flex flex-col space-y-3",
+    },
+  },
 };
 
 export default function LocaleGuard() {
   const { siteContent, menuData, locale, carousels } =
     useLoaderData<typeof loader>();
-  const menuItems: Menu[] = menuData
-    ?.map((menu) => menu.attributes)
+  const menuItems: Menu[] = (menuData || [])
+    .map((menu) => menu.attributes)
     .filter((menu) => !!menu)
     .sort((a, b) => (a?.priority || 0) - (b?.priority || 0)) as Menu[];
 
@@ -72,7 +78,11 @@ export default function LocaleGuard() {
     menuItems && (
       <SiteContentContext.Provider value={siteContent}>
         <Flowbite theme={{ theme: customTheme }}>
-          <NavBar menuItems={menuItems} locale={locale} carousels={carousels} />
+          <NavBar
+            menuItems={menuItems}
+            locale={locale}
+            carousels={carousels || []}
+          />
           <Outlet />
         </Flowbite>
       </SiteContentContext.Provider>

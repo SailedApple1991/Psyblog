@@ -1,14 +1,16 @@
 import { Bars3Icon, LanguageIcon } from "@heroicons/react/24/solid";
 import { Link, useLocation } from "@remix-run/react";
+import { matchPath } from "react-router";
 import classNames from "classnames";
-import { Button, Carousel } from "flowbite-react";
+import { Button } from "flowbite-react";
 import { useState } from "react";
-import { Carousel as CarouselData, Menu } from "~/api/strapi";
+import { CarouselListResponseDataItem, Menu } from "~/api/strapi";
 import { useSiteContent } from "~/components/SiteContentContext";
+import { VerticalCarousel } from "./VerticalCarousel";
 
 export interface NavBarProps {
   menuItems: Menu[];
-  carousels: CarouselData[];
+  carousels: CarouselListResponseDataItem[];
   locale: any;
 }
 
@@ -35,7 +37,7 @@ export default function NavBar(props: NavBarProps) {
           <div className="flex items-center">
             {menuItems.map((menu) => {
               const url = `/${locale}${menu.url}`;
-              const active = url === useLocation().pathname;
+              const active = matchPath(useLocation().pathname, url);
               return (
                 <div>
                   <Link
@@ -56,77 +58,8 @@ export default function NavBar(props: NavBarProps) {
           </div>
         </div>
         {/* carousel */}
-        <div className="relative -left-32 mb-16 mt-8 h-96 w-full bg-main-light">
-          {carousels.slice(0, 1).map((carousel) => (
-            <div
-              key={carousel.Title}
-              className="relative flex h-full w-full justify-between align-middle"
-            >
-              <div
-                style={{
-                  backgroundColor: "#A18771",
-                  border: "14px solid #EDE7E0",
-                  boxSizing: "border-box",
-                  position: "absolute",
-                  left: 0,
-                  top: 0,
-                  height: "100%",
-                  width: "60%",
-                  zIndex: -1,
-                }}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-end",
-                }}
-              >
-                <div style={{ fontSize: "3em", color: "#FFFFFF" }}>
-                  {carousel.Title}
-                </div>
-                <div
-                  style={{
-                    fontWeight: "bold",
-                    color: "#FFFFFF",
-                    marginBottom: "0.5em",
-                  }}
-                >
-                  {carousel.TitleCaption}
-                </div>
-                <div>
-                  {(carousel.Body || "").split("\n").map((line: string) => (
-                    <div
-                      style={{
-                        color: "#FFFFFF",
-                        fontSize: "0.8em",
-                        marginBottom: "0.5em",
-                      }}
-                    >
-                      {line}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-end",
-                }}
-              >
-                <div style={{ color: "#A18771" }}>{carousel.ImageCaption}</div>
-                <img
-                  style={{ border: "14px solid #FFFFFF" }}
-                  src={
-                    "http://localhost:1337" +
-                    carousel.Image?.data?.attributes?.formats.small.url
-                  }
-                  alt={carousel.Image?.data?.attributes?.name}
-                />
-              </div>
-            </div>
-          ))}
+        <div className="relative -left-1/12 mb-16 mt-8 w-full bg-main-light p-4">
+          <VerticalCarousel carousels={carousels} />
         </div>
       </div>
     </div>

@@ -14,6 +14,12 @@ export default {
           inactive: "#B5B1AC",
         },
       },
+      height: {
+        "128": "32rem",
+      },
+      spacing: {
+        "1/12": "8.333333%",
+      },
     },
   },
   plugins: [require("flowbite/plugin")],
