@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { Link } from '@remix-run/react';
-
+import { useSiteContent} from '../components/SiteContentContext';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -10,10 +10,12 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+    const siteContent = useSiteContent();
+
   return (
     <div className="flex justify-center items-center h-screen bg-[#EDE7E0]">
       <div className="px-14 py-10 bg-white">
-      <div className="max-w-md mx-auto">
+      <div className="max-w-md mx-auto ">
         <h1 className="text-3xl font-bold mb-2 text-left">Welcome!</h1>
         <p className="text-sm mb-4 text-left">Please Login.</p>
 
@@ -27,7 +29,7 @@ const Login = () => {
             type="text"
             placeholder="Enter your username"
             required
-            className="text-lg"
+            className="text-sm border border-[#A18771]"
           />
         </div>
 
@@ -41,7 +43,7 @@ const Login = () => {
               name="password"
               type={showPassword ? 'text' : 'password'}
               placeholder="Enter your password"
-              className="text-lg"
+              className="text-sm  border border-[#A18771]"
             />
             <div
               className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
@@ -62,11 +64,11 @@ const Login = () => {
         </div>
 
         <Button color="" className="w-full mb-4 bg-[#A18771] text-lg text-white">
-          Login
+          {siteContent.loginButtonLabel}
         </Button>
 
         <Button color="secondary" className="w-full bg-[#EDE7E0] text-lg text-white" href={`/signup`}>
-          Register
+          {siteContent.registerButtonLabel}
         </Button>
       </div>
     </div>

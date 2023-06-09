@@ -10,7 +10,7 @@ import { useState } from "react";
 import Login from "./$locale.login";
 
 export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
-  return [{ title: data?.siteTitle }];
+  return [{ title: data?.siteContent.siteTitle }];
 };
 
 export async function loader({ params }: LoaderArgs) {

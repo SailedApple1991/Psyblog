@@ -4,12 +4,14 @@ import { AiFillCheckCircle, AiFillEye, AiFillEyeInvisible} from 'react-icons/ai'
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import {MdTimer10} from 'react-icons/md';
 import { Link } from '@remix-run/react';
-
+import { useSiteContent} from '../components/SiteContentContext';
 type CustomStyleProperties = {
   [key: string]: string | number;
 };
 
 const SignUp = () => {
+
+  const siteContent = useSiteContent();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setConfirmShowPassword] = useState(false);
   const [isPasswordSelected, setIsPasswordSelected] = useState(false);
@@ -89,7 +91,7 @@ const SignUp = () => {
             type="email"
             placeholder="Enter your email"
             required
-            className="text-lg"
+            className="text-sm  border border-[#A18771] rounded-xl"
           />
            <div
               className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-xs"
@@ -112,7 +114,7 @@ const SignUp = () => {
             type="text"
             placeholder="Enter auth code"
             required
-            className="text-lg"
+            className="text-sm  border border-[#A18771] rounded-lg"
           />
            <div
               className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-sm"
@@ -127,7 +129,7 @@ const SignUp = () => {
 
         <div className="w-full mb-3">
           <Label htmlFor="password" className="text-lg text-left">
-            Enter Password
+            {siteContent.PasswordLabel}
           </Label>
           <div className="relative">
             <TextInput
@@ -135,7 +137,7 @@ const SignUp = () => {
               name="password"
               type={showPassword ? 'text' : 'password'}
               placeholder="Enter your password"
-              className="text-lg"
+              className="text-sm  border border-[#A18771] rounded-lg"
               onFocus={handlePasswordInputFocus}
               onBlur={handlePasswordInputBlur}
               value={password}
@@ -188,7 +190,7 @@ const SignUp = () => {
         
         <div className="w-full mb-3">
           <Label htmlFor="comfirmPassword" className="text-lg text-left">
-            Confirm Password
+          {siteContent.ConfirmPasswordLabel}
           </Label>
           <div className="relative">
             <TextInput
@@ -196,7 +198,7 @@ const SignUp = () => {
               name="confirmPassword"
               type={showConfirmPassword ? 'text' : 'password'}
               placeholder="Confirm your password"
-              className="text-lg"
+              className="text-sm  border border-[#A18771] rounded-lg"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               onBlur={handleConfirmPasswordBlur}
@@ -220,7 +222,7 @@ const SignUp = () => {
             type="text"
             placeholder="Enter your username"
             required
-            className="text-lg"
+            className="text-sm  border border-[#A18771] rounded-lg"
           />
         </div>
 
@@ -233,12 +235,12 @@ const SignUp = () => {
             name="birthday"
             type="date"
             required
-            className="text-lg"
+            className="text-sm  border border-[#A18771] rounded-lg"
           />
         </div>
 
         <Button color="secondary" className="w-full bg-[#EDE7E0] text-lg text-white" onClick={handleLogin}>
-          Register
+         {siteContent.registerButtonLabel}
         </Button>
       </div>
     </div>
