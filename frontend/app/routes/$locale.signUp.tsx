@@ -15,9 +15,9 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setConfirmShowPassword] = useState(false);
   const [isPasswordSelected, setIsPasswordSelected] = useState(false);
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handlePasswordInputFocus = () => {
     setIsPasswordSelected(true);
@@ -27,7 +27,6 @@ const SignUp = () => {
     setIsPasswordSelected(false);
   };
 
-
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
   };
@@ -35,8 +34,7 @@ const SignUp = () => {
     setConfirmShowPassword(!showConfirmPassword);
   };
 
-  const handleValidation = () => {
-  };
+  const handleValidation = () => {};
 
   const countdownStyle: CustomStyleProperties = {
     "--value": 60,
@@ -57,9 +55,9 @@ const SignUp = () => {
 
   const validateConfirmPassword = () => {
     if (password !== confirmPassword) {
-      setPasswordError('Passwords do not match');
+      setPasswordError("Passwords do not match");
     } else {
-      setPasswordError('');
+      setPasswordError("");
     }
   };
 
@@ -74,11 +72,13 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#EDE7E0]">
-      <div className="px-14 py-10 bg-white">
-      <div className="max-w-md mx-auto">
-        <h1 className="text-xl font-bold mb-2 text-left">Account Sign Up</h1>
-        <p className="text-sm mb-4 text-left">Please use email for registration.</p>
+    <div className="flex h-screen items-center justify-center bg-[#EDE7E0]">
+      <div className="bg-white px-14 py-10">
+        <div className="mx-auto max-w-md">
+          <h1 className="mb-2 text-left text-xl font-bold">Account Sign Up</h1>
+          <p className="mb-4 text-left text-sm">
+            Please use email for registration.
+          </p>
 
         <div className="w-72 h-30 mb-3 ">
           <Label htmlFor="email" className="text-lg text-left">
@@ -101,7 +101,6 @@ const SignUp = () => {
             </div>
             
           </div>
-        </div>
 
         <div className="w-full mb-3">
           <Label htmlFor="authcode" className="text-lg text-left">
@@ -154,37 +153,61 @@ const SignUp = () => {
       
       {isPasswordSelected &&(
               <div>
-                <h2 className="mb-1 text-md font-semibold text-gray-900 dark:text-white">
+                <h2 className="text-md mb-1 font-semibold text-gray-900 dark:text-white">
                   Password requirements:
                 </h2>
-                <ul className="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
-              <li className="text-xs flex items-center">
-                {passwordRequirements.hasMinLength ? (
-                  <FaCheckCircle size={13.5} style={{ fill: '#0e9f6e' }} className="mr-1.5 ml-0.5" />
-                ) : (
-                  <FaTimesCircle size={13.5} style={{ fill: '#9ca3af' }} className="mr-1.5 ml-0.5" />
-                )}
-                At least 10 characters
-              </li>
-              <li className="text-xs flex items-center">
-                {passwordRequirements.hasLowercase ? (
-                  <FaCheckCircle size={13.5} style={{ fill: '#0e9f6e' }} className="mr-1.5 ml-0.5" />
-                ) : (
-                  <FaTimesCircle size={13.5} style={{ fill: '#9ca3af' }} className="mr-1.5 ml-0.5" />
-                )}
-                At least one lowercase character
-              </li>
-              <li className="text-xs flex items-center">
-                {passwordRequirements.hasSpecialChar ? (
-                  <FaCheckCircle size={13.5} style={{ fill: '#0e9f6e' }} className="mr-1.5 ml-0.5" />
-                ) : (
-                  <FaTimesCircle size={13.5} style={{ fill: '#9ca3af' }} className="mr-1.5 ml-0.5" />
-                )}
-                At least one special character, e.g., ! @ # ?
-              </li>
-            </ul>
+                <ul className="max-w-md list-inside space-y-1 text-gray-500 dark:text-gray-400">
+                  <li className="flex items-center text-xs">
+                    {passwordRequirements.hasMinLength ? (
+                      <FaCheckCircle
+                        size={13.5}
+                        style={{ fill: "#0e9f6e" }}
+                        className="ml-0.5 mr-1.5"
+                      />
+                    ) : (
+                      <FaTimesCircle
+                        size={13.5}
+                        style={{ fill: "#9ca3af" }}
+                        className="ml-0.5 mr-1.5"
+                      />
+                    )}
+                    At least 10 characters
+                  </li>
+                  <li className="flex items-center text-xs">
+                    {passwordRequirements.hasLowercase ? (
+                      <FaCheckCircle
+                        size={13.5}
+                        style={{ fill: "#0e9f6e" }}
+                        className="ml-0.5 mr-1.5"
+                      />
+                    ) : (
+                      <FaTimesCircle
+                        size={13.5}
+                        style={{ fill: "#9ca3af" }}
+                        className="ml-0.5 mr-1.5"
+                      />
+                    )}
+                    At least one lowercase character
+                  </li>
+                  <li className="flex items-center text-xs">
+                    {passwordRequirements.hasSpecialChar ? (
+                      <FaCheckCircle
+                        size={13.5}
+                        style={{ fill: "#0e9f6e" }}
+                        className="ml-0.5 mr-1.5"
+                      />
+                    ) : (
+                      <FaTimesCircle
+                        size={13.5}
+                        style={{ fill: "#9ca3af" }}
+                        className="ml-0.5 mr-1.5"
+                      />
+                    )}
+                    At least one special character, e.g., ! @ # ?
+                  </li>
+                </ul>
               </div>
-      )}
+            )}
           </div>
 
         

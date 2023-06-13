@@ -45,13 +45,45 @@ const Login = () => {
               placeholder="Enter your password"
               className="text-sm  border border-[#A18771]"
             />
-            <div
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
-              onClick={handlePasswordToggle}
-            >
-              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+          </div>
+
+          <div className="mb-6 w-full">
+            <Label htmlFor="password" className="text-left text-lg">
+              Password
+            </Label>
+            <div className="relative">
+              <TextInput
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                className="text-lg"
+              />
+              <div
+                className="absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer"
+                onClick={handlePasswordToggle}
+              >
+                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+              </div>
             </div>
           </div>
+
+          <div className="mb-6 flex w-full justify-between">
+            <Link to="/forgot-password" className="text-left text-sm">
+              Forgot password?
+            </Link>
+            <Link to="/auto-login" className="text-right text-sm">
+              Auto Login
+            </Link>
+          </div>
+
+          {/* <Flowbite> */}
+          <Button color="primary">Click me</Button>
+          {/* </Flowbite> */}
+
+          <Button color="secondary" href={`/signup`}>
+            Register
+          </Button>
         </div>
 
         <div className="flex justify-between w-full mb-6">
@@ -71,7 +103,6 @@ const Login = () => {
           {siteContent.registerButtonLabel}
         </Button>
       </div>
-    </div>
     </div>
   );
 };
