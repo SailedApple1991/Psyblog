@@ -49,13 +49,13 @@ const SignUp = () => {
       hasLowercase,
       hasSpecialChar,
     };
-  };
+  }
 
   const passwordRequirements = validatePassword(password);
 
   const validateConfirmPassword = () => {
     if (password !== confirmPassword) {
-      setPasswordError("Passwords do not match");
+      setPasswordError("Passwordßs do not match");
     } else {
       setPasswordError("");
     }
@@ -266,9 +266,9 @@ const SignUp = () => {
          {siteContent.registerButtonLabel}
         </Button>
       </div>
+      </div>
     </div>
     </div>
-  );
+    )
 };
-
 export default SignUp;
