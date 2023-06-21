@@ -1,9 +1,66 @@
 import { useState } from 'react';
+import {
+  ActionFunction,
+  json,
+  LoaderFunction
+} from '@remix-run/node';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { Link } from '@remix-run/react';
+import { Link, useLoaderData, Form } from '@remix-run/react';
 import { useSiteContent} from '../components/SiteContentContext';
+import authenticator from "~/services/auth.server";
+import { sessionStorage } from "~/services/session.server";
+
+
+const strapiApiUrl = process.env.STRAPI_API_URL;
+
+/**
+ * called when the user hits button to login
+ *
+ * @param param0
+ * @returns
+ */
+export const action: ActionFunction = async ({ request, context }) => {
+  // call my authenticator
+  console.log("test")
+  const resp = await authenticator.authenticate("form", request, {
+    successRedirect: "/",
+    failureRedirect: "/login",
+    throwOnError: true,
+    context,
+  });
+  console.log(resp);
+  return resp;
+};
+
+/**
+ * get the cookie and see if there are any errors that were
+ * generated when attempting to login
+ *
+ * @param param0
+ * @returns
+ */
+export const loader: LoaderFunction = async ({ request }) => {
+
+  await authenticator.isAuthenticated(request, {
+    successRedirect : "/"
+  });
+
+  const session = await sessionStorage.getSession(
+    request.headers.get("Cookie")
+  );
+
+  const error = session.get("sessionErrorKey");
+  return json<any>({ error });
+};
+
+
+
+
 const Login = () => {
+  const loaderData = useLoaderData();
+  console.log(loaderData);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handlePasswordToggle = () => {
@@ -18,7 +75,7 @@ const Login = () => {
       <div className="max-w-md mx-auto ">
         <h1 className="text-3xl font-bold mb-2 text-left">Welcome!</h1>
         <p className="text-sm mb-4 text-left">Please Login.</p>
-
+      <Form method="post">
         <div className="w-72 mb-4">
           <Label htmlFor="username" className="text-lg text-left">
             Username
@@ -63,14 +120,16 @@ const Login = () => {
           </Link>
         </div>
 
-        <Button color="" className="w-full mb-4 bg-[#A18771] text-lg text-white">
+        <Button type='submit' color="" className="w-full mb-4 bg-[#A18771] text-lg text-white">
           {siteContent.loginButtonLabel}
         </Button>
 
         <Button color="secondary" className="w-full bg-[#EDE7E0] text-lg text-white" href={`/signup`}>
           {siteContent.registerButtonLabel}
         </Button>
+        </Form>
       </div>
+    
     </div>
     </div>
   );
