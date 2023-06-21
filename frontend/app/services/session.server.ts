@@ -1,5 +1,6 @@
 // app/services/session.server.ts
-import { createCookieSessionStorage } from '@remix-run/node';
+import { createCookieSessionStorage, redirect } from '@remix-run/node';
+import { LoginResponse } from '~/utils/types';
 
 // export the whole sessionStorage object
 export let sessionStorage = createCookieSessionStorage({
@@ -21,3 +22,33 @@ export type User = {
   name: string;
   email: string;
 };
+
+// fucntion to save user data to session
+export const createUserSession = async (userData: LoginResponse, redirectTo: string) => {
+  const session = await getSession()
+  session.set("userData", userData);
+
+  console.log({ session });
+
+  return redirect(redirectTo, {
+    headers: {
+      "Set-Cookie": await commitSession(session)
+    }
+  })
+}
+
+// get cookies from request
+const getUserSession = (request: Request) => {
+  return getSession(request.headers.get("Cookie"))
+}
+
+// function to remove user data from session, logging user out
+export const logout = async (request: Request) => {
+  const session = await getUserSession(request);
+
+  return redirect("/sign-in", {
+    headers: {
+      "Set-Cookie": await destroySession(session)
+    }
+  })
+}

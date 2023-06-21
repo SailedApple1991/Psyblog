@@ -3,8 +3,7 @@ import { Authenticator, AuthorizationError } from 'remix-auth';
 import { FormStrategy } from 'remix-auth-form';
 import { sessionStorage, User } from './session.server';
 import { signIn } from '~/api/profiles.server';
-import { LoginActionData } from '~/utils/types';
-import  bcrypt  from 'bcryptjs';
+
 // Create an instance of the authenticator, pass a Type, User,  with what
 // strategies will return and will store in the session
 const authenticator = new Authenticator<User | Error | null>(sessionStorage, {

@@ -61,10 +61,8 @@ export type Format = {
     slug?: string | null
     id?: string | File | null;
     username?: string | File | null;
-    twitterUsername?: string | File | null;
-    bio?: string | File | null;
-    title?: string | File | null;
-    websiteUrl?: string | File | null;
+    gender?: string | File | null;
+    birthdate?: Date | File | null;
     // email: string | File | null
     // password: string | File | null
   };

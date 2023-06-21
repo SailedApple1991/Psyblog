@@ -3,14 +3,62 @@ import { Button, Label, TextInput } from 'flowbite-react';
 import { AiFillCheckCircle, AiFillEye, AiFillEyeInvisible} from 'react-icons/ai';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import {MdTimer10} from 'react-icons/md';
-import { Link } from '@remix-run/react';
+import { Form, Link, useActionData } from '@remix-run/react';
 import { useSiteContent} from '../components/SiteContentContext';
+import { createUserSession } from '~/services/session.server';
+import { register } from '~/api/profiles.server';
+import { RegisterActionData } from '~/utils/types';
+import { ActionFunction, json } from '@remix-run/node';
 type CustomStyleProperties = {
   [key: string]: string | number;
 };
 
-const SignUp = () => {
 
+export const action: ActionFunction = async ({ request }) => {
+  try {
+    // get request form data
+    const formData = await request.formData();
+
+    // get form input values
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const username = formData.get("username");
+    const confirmPassword = formData.get("confirmPassword");
+    const birthdate = new Date(formData.get("birthday")?.toString());
+    const gender = formData.get("gender");
+    const websiteUrl = formData.get("website");
+
+    const errors: RegisterActionData = {
+      email: email ? null : "Email is required",
+      password: password ? null : "Password is required",
+      username: username ? null : "Username is required"
+    };
+
+    const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
+
+    if (hasErrors) throw errors;
+
+    console.log({ email, password, username, confirmPassword, birthdate, gender});
+
+    // function to register user with user details
+    const { jwt, user, error } = await register({ email, password, username,gender, birthdate});
+    console.log({ jwt, user, error });
+
+    // throw strapi error message if strapi returns an error
+    if (error) throw { [error.name]: error.message };
+
+    // create user session
+    return createUserSession({ jwt, user }, "/");
+  } catch (error) {
+    // return error response
+    return json(error);
+  }
+};
+
+
+const SignUp = () => {
+  const errors = useActionData();
+  console.log({ errors });
   const siteContent = useSiteContent();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setConfirmShowPassword] = useState(false);
@@ -55,7 +103,7 @@ const SignUp = () => {
 
   const validateConfirmPassword = () => {
     if (password !== confirmPassword) {
-      setPasswordError("Passwordßs do not match");
+      setPasswordError("Passwords do not match");
     } else {
       setPasswordError("");
     }
@@ -72,14 +120,15 @@ const SignUp = () => {
   };
 
   return (
+    <Form method="post">
     <div className="flex h-screen items-center justify-center bg-[#EDE7E0]">
       <div className="bg-white px-14 py-10">
+        
         <div className="mx-auto max-w-md">
           <h1 className="mb-2 text-left text-xl font-bold">Account Sign Up</h1>
           <p className="mb-4 text-left text-sm">
             Please use email for registration.
           </p>
-
         <div className="w-72 h-30 mb-3 ">
           <Label htmlFor="email" className="text-lg text-left">
             Email Address
@@ -262,13 +311,14 @@ const SignUp = () => {
           />
         </div>
 
-        <Button color="secondary" className="w-full bg-[#EDE7E0] text-lg text-white" onClick={handleLogin}>
+        <Button type='submit' color="secondary" className="w-full bg-[#EDE7E0] text-lg text-white" onClick={handleLogin}>
          {siteContent.registerButtonLabel}
         </Button>
       </div>
       </div>
     </div>
     </div>
+    </Form>
     )
 };
 export default SignUp;
