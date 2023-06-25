@@ -7,12 +7,15 @@ import { getStrapiApi } from "~/api/strapiWrapper";
 import { SiteContentContext } from "~/components/SiteContentContext";
 import { supportLocales } from "~/utils/supportLocales";
 import NavBar from "../components/NavBar";
+import { getSession } from "~/services/session.server";
 
 export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
   return [{ title: data?.siteContent?.siteTitle }];
 };
 
-export async function loader({ params }: LoaderArgs) {
+export async function loader({ params, request}: LoaderArgs) {
+
+  let session = await getSession(request.headers.get("cookie"));
   const pickedLanguage = acceptLanguage.pick(
     supportLocales,
     params.locale || ""
@@ -40,11 +43,14 @@ export async function loader({ params }: LoaderArgs) {
     populate: "Image",
   });
 
+ 
+
   return json({
     siteContent: siteContentResp.data.data?.attributes,
     menuData: menuResp.data.data,
     carousels: carouselResp.data.data,
     locale: pickedLanguage,
+    sessionData: session.data
   });
 }
 
@@ -66,7 +72,7 @@ const customTheme: DeepPartial<FlowbiteTheme> = {
 };
 
 export default function LocaleGuard() {
-  const { siteContent, menuData, locale, carousels } =
+  const { siteContent, menuData, locale, carousels, sessionData } =
     useLoaderData<typeof loader>();
   const menuItems: Menu[] = (menuData || [])
     .map((menu) => menu.attributes)
@@ -82,6 +88,7 @@ export default function LocaleGuard() {
             menuItems={menuItems}
             locale={locale}
             carousels={carousels || []}
+            userInfo = {sessionData || []}
           />
           <Outlet />
         </Flowbite>

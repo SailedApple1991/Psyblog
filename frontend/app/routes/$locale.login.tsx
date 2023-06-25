@@ -2,14 +2,15 @@ import { useState } from 'react';
 import {
   ActionFunction,
   json,
-  LoaderFunction
+  LoaderFunction,
+  redirect
 } from '@remix-run/node';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { Link, useLoaderData, Form } from '@remix-run/react';
 import { useSiteContent} from '../components/SiteContentContext';
 import authenticator from "~/services/auth.server";
-import { sessionStorage } from "~/services/session.server";
+import { commitSession, getSession, sessionStorage } from "~/services/session.server";
 
 
 const strapiApiUrl = process.env.STRAPI_API_URL;
@@ -23,14 +24,19 @@ const strapiApiUrl = process.env.STRAPI_API_URL;
 export const action: ActionFunction = async ({ request, context }) => {
   // call my authenticator
   console.log("test")
-  const resp = await authenticator.authenticate("form", request, {
-    successRedirect: "/",
+  let user = await authenticator.authenticate("form", request, {
     failureRedirect: "/login",
     throwOnError: true,
     context,
   });
-  console.log(resp);
-  return resp;
+
+    // manually get the session
+    let session = await getSession(request.headers.get("cookie"));
+    // and store the user data
+    session.set(authenticator.sessionKey, user);
+     // commit the session
+  let headers = new Headers({ "Set-Cookie": await commitSession(session) });
+  return redirect("/", { headers });
 };
 
 /**
@@ -52,6 +58,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const error = session.get("sessionErrorKey");
   return json<any>({ error });
+
+
 };
 
 
