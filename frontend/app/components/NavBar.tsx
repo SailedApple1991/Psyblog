@@ -1,5 +1,5 @@
 import { Bars3Icon, LanguageIcon } from "@heroicons/react/24/solid";
-import { Link, useLocation } from "@remix-run/react";
+import { Form, Link, useLocation } from "@remix-run/react";
 import { matchPath } from "react-router";
 import classNames from "classnames";
 import { Avatar, Button, Dropdown } from "flowbite-react";
@@ -7,20 +7,18 @@ import { useState } from "react";
 import { CarouselListResponseDataItem, Menu } from "~/api/strapi";
 import { useSiteContent } from "~/components/SiteContentContext";
 import { VerticalCarousel } from "./VerticalCarousel";
-
+import { ActionFunction, redirect } from "@remix-run/node";
+import authenticator from "~/services/auth.server";
 export interface NavBarProps {
   menuItems: Menu[];
   carousels: CarouselListResponseDataItem[];
   locale: any;
   userInfo: any;
 }
-
 export default function NavBar(props: NavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { loginButtonLabel, registerButtonLabel } = useSiteContent();
   const { menuItems, locale, carousels, userInfo } = props;
-
-  console.log(userInfo.sessionKey)
   return (
     <div className="flex justify-between align-middle">
       <div className="flex-none basis-1/6 p-4">Logo</div>
@@ -56,18 +54,22 @@ export default function NavBar(props: NavBarProps) {
               );
             })}
             <LanguageIcon className="ml-4 h-6 w-6 text-black" />
-            <Dropdown inline label={<Bars3Icon className="ml-2 h-6 w-6 text-black" />} arrowIcon={false}>
+            <Form action="/logout" method="post">
+            <Dropdown type = 'submit' inline label={<Bars3Icon className="ml-2 h-6 w-6 text-black" />} arrowIcon={false}>
               <Dropdown.Header>
                 <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
-                <span className="block text-sm">{userInfo.sessionKey.username}</span>
-                <span className="block truncate text-sm font-medium">{userInfo.sessionKey.email}</span>
+                <span className="block text-sm">{userInfo.sessionKey?.username}</span>
+                <span className="block truncate text-sm font-medium">{userInfo.sessionKey?.email || ''}</span>
               </Dropdown.Header>
               <Dropdown.Item>Dashboard</Dropdown.Item>
               <Dropdown.Item>Settings</Dropdown.Item>
               <Dropdown.Item>Earnings</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item>Sign out</Dropdown.Item>
+              <Dropdown.Item>
+              <button type="submit" className="w-full text-left">Sign out</button>
+              </Dropdown.Item>
             </Dropdown>
+            </Form>
           </div>
         </div>
         {/* carousel */}

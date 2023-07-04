@@ -63,6 +63,11 @@
           "localized": true
         }
       }
+    },
+    "Comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment"
     }
   }
 }

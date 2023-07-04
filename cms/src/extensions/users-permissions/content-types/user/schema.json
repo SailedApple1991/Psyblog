@@ -70,6 +70,12 @@
     },
     "birthDate": {
       "type": "date"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

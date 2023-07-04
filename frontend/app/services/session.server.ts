@@ -38,7 +38,7 @@ export const createUserSession = async (userData: LoginResponse, redirectTo: str
 }
 
 // get cookies from request
-const getUserSession = (request: Request) => {
+export const getUserSession = (request: Request) => {
   return getSession(request.headers.get("Cookie"))
 }
 
@@ -46,7 +46,7 @@ const getUserSession = (request: Request) => {
 export const logout = async (request: Request) => {
   const session = await getUserSession(request);
 
-  return redirect("/sign-in", {
+  return redirect("/", {
     headers: {
       "Set-Cookie": await destroySession(session)
     }
