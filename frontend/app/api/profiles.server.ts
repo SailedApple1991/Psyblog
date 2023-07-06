@@ -42,15 +42,21 @@ export const signIn = async (data: LoginActionData): Promise<LoginResponse> => {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(data)
-  })
+  });
 
-  let response = await profile.json()
+  let response = await profile.json();
 
   console.log({ response });
 
-  // return login response
-  return response
-}
+  // Check if the login was successful
+  if (profile.ok) {
+    // If successful, return the user object
+    return response;
+  } else {
+    // If login failed, throw an error with the error message
+    throw new Error(response?.message || 'Invalid username or password');
+  }
+};
 
 // function to register user
 export const register = async (data: RegisterActionData): Promise<LoginResponse> => {

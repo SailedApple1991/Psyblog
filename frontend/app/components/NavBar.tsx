@@ -9,6 +9,7 @@ import { useSiteContent } from "~/components/SiteContentContext";
 import { VerticalCarousel } from "./VerticalCarousel";
 import { ActionFunction, redirect } from "@remix-run/node";
 import authenticator from "~/services/auth.server";
+import Login from '../routes/Login'
 export interface NavBarProps {
   menuItems: Menu[];
   carousels: CarouselListResponseDataItem[];
@@ -19,6 +20,8 @@ export default function NavBar(props: NavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { loginButtonLabel, registerButtonLabel } = useSiteContent();
   const { menuItems, locale, carousels, userInfo } = props;
+  const [openModal, setOpenModal] = useState<string | undefined>();
+
   return (
     <div className="flex justify-between align-middle">
       <div className="flex-none basis-1/6 p-4">Logo</div>
@@ -30,9 +33,11 @@ export default function NavBar(props: NavBarProps) {
             <Button href={`/${locale}/signup`} color="primary">
               {registerButtonLabel}
             </Button>
-            <Button href={`/${locale}/login`} color="primary" outline>
+            <Button onClick={() => setOpenModal('form-elements')} color="primary" outline>
               {loginButtonLabel}
             </Button>
+        <Login openModal={openModal} setOpenModal={setOpenModal} />
+ 
           </div>
           <div className="flex items-center">
             {menuItems.map((menu) => {
